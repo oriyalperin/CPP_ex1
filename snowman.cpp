@@ -4,15 +4,15 @@
 using namespace std;
 using namespace ariel;
 
-string hat(int h);      // returns the hat string according to input
-string nose(int n);     // returns the nose string according to input
-string leye(int l);     // returns the left eye string according to input
-string reye(int r);     // returns the right eye string according to input
-string larm(int x);     // returns the left arm string according to input
-string rarm(int y);     // returns the right arm string according to input
-string torso(int t);    // returns the torso string according to input
-string base(int b);     // returns the base string according to input
-
+const int options =4;
+array<string,options> hat={hat1,hat2,hat3,hat4};                // returns the hat array<string,options> according to input
+array<string,options> nose={nose1,nose2,nose3,nose4};           // returns the nose array<string,options> according to input
+array<string,options> leye={leye1,leye2,leye3,leye4};           // returns the left eye array<string,options> according to input
+array<string,options> reye={reye1,reye2,reye3,reye4};          // returns the right eye array<string,options> according to input
+array<string,options> larm={larm1,larm2,larm3,larm4};          // returns the left arm array<string,options> according to input
+array<string,options> rarm={rarm1,rarm2,rarm3,rarm4};           // returns the right arm array<string,options> according to input
+array<string,options> torso= {torso1,torso2,torso3,torso4};    // returns the torso array<string,options> according to input
+array<string,options> base= {base1,base2,base3,base4};   // returns the base string according to input
 
 string ariel::snowman(int body)
 {
@@ -27,7 +27,7 @@ string ariel::snowman(int body)
     const int Y= 5;             // Sixth count in input
     const int T= 6;             // Seventh digit in the input
     const int B= 7;             // Eighth digit in input
-    const int upHand= 2;        //the fourth/Fifth digit in input is 2 = hand up
+    const int upHand= 1;        //the fourth/Fifth digit in input is 2 = hand up
     const int ones= 10;         //for extract each digit from input
 
     if(body< min) // if the input: includes 0 or miss digits or is negative
@@ -45,7 +45,12 @@ string ariel::snowman(int body)
     
     for(int i=inputSize-1;i>=0;i--) //pass each digit in input
     {
-        sm.at(i)=temp%ones; // insert the current digit to the sm array 
+        int digit=temp%ones;
+        if(digit <1 || digit >4)
+        {
+            throw invalid_argument("illegal digit");
+        }
+        sm.at(i)=digit-1; // insert the current digit to the sm array 
         temp/=ones;
     }
 
@@ -53,227 +58,54 @@ string ariel::snowman(int body)
     {
         //draw the snowman
         return
-        hat(sm[H])+"\n"+
-        larm(sm[X])+
-        leye(sm[L])+
-        nose(sm[N])+
-        reye(sm[R])+"\n "+
-        torso(sm[T])+
-        rarm(sm[Y])+"\n "+
-        base(sm[B]);
+        hat.at(sm[H])+"\n"+
+        larm.at(sm[X])+
+        leye.at(sm[L])+
+        nose.at(sm[N])+
+        reye.at(sm[R])+"\n "+
+        torso.at(sm[T])+
+        rarm.at(sm[Y])+"\n "+
+        base.at(sm[B]);
     }
 
     if (sm[X]!=upHand && sm[Y]==upHand) //if right hand up and left hand not
     {
         //draw the snowman
         return
-        hat(sm[H])+"\n "+
-        leye(sm[L])+
-        nose(sm[N])+
-        reye(sm[R])+
-        rarm(sm[Y])+"\n"+
-        larm(sm[X])+
-        torso(sm[T])+"\n "+
-        base(sm[B]);
+        hat.at(sm[H])+"\n "+
+        leye.at(sm[L])+
+        nose.at(sm[N])+
+        reye.at(sm[R])+
+        rarm.at(sm[Y])+"\n"+
+        larm.at(sm[X])+
+        torso.at(sm[T])+"\n "+
+        base.at(sm[B]);
     }
 
     if (sm[X]==upHand && sm[Y]==upHand) //both hands up
     {
         //draw the snowman
         return
-        hat(sm[H])+"\n"+
-        larm(sm[X])+
-        leye(sm[L])+
-        nose(sm[N])+
-        reye(sm[R])+
-        rarm(sm[Y])+"\n "+
-        torso(sm[T])+"\n "+
-        base(sm[B]);
+        hat.at(sm[H])+"\n"+
+        larm.at(sm[X])+
+        leye.at(sm[L])+
+        nose.at(sm[N])+
+        reye.at(sm[R])+
+        rarm.at(sm[Y])+"\n "+
+        torso.at(sm[T])+"\n "+
+        base.at(sm[B]);
     }
     
     //if none of the hands are up
     return
-    hat(sm[H])+"\n "+
-    leye(sm[L])+
-    nose(sm[N])+
-    reye(sm[R])+"\n"+
-    larm(sm[X])+
-    torso(sm[T])+
-    rarm(sm[Y])+"\n "+
-    base(sm[B]);
+    hat.at(sm[H])+"\n "+
+    leye.at(sm[L])+
+    nose.at(sm[N])+
+    reye.at(sm[R])+"\n"+
+    larm.at(sm[X])+
+    torso.at(sm[T])+
+    rarm.at(sm[Y])+"\n "+
+    base.at(sm[B]);
 
 }
-        
-string hat(int h) 
-{
-    switch (h)
-    {
-    case 1:
-        return hat1;
-        break;
-    case 2:
-        return hat2;
-        break;
-    case 3:
-        return hat3;
-        break;
-    case 4:
-        return hat4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-
-string nose(int n) 
-{
-    switch (n)
-    {
-    case 1:
-        return nose1;
-        break;
-    case 2:
-        return nose2;
-        break;
-    case 3:
-        return nose3;
-        break;
-    case 4:
-        return nose4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-string leye(int l) 
-{
-    switch (l)
-    {
-    case 1:
-        return leye1;
-        break;
-    case 2:
-        return leye2;
-        break;
-    case 3:
-        return leye3;
-        break;
-    case 4:
-        return leye4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-
-}
-string reye(int r) 
-{
-    switch (r)
-    {
-    case 1:
-        return reye1;
-        break;
-    case 2:
-        return reye2;
-        break;
-    case 3:
-        return reye3;
-        break;
-    case 4:
-        return reye4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-
-string larm(int x) 
-{
-    switch (x)
-    {
-    case 1:
-        return larm1;
-        break;
-    case 2:
-        return larm2;
-        break;
-    case 3:
-        return larm3;
-        break;
-    case 4:
-        return larm4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-string rarm(int y) 
-{
-    switch (y)
-    {
-    case 1:
-        return rarm1;
-        break;
-    case 2:
-        return rarm2;
-        break;
-    case 3:
-        return rarm3;
-        break;
-    case 4:
-        return rarm4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-string torso(int t) 
-{
-    switch (t)
-    {
-    case 1:
-        return torso1;
-        break;
-    case 2:
-        return torso2;
-        break;
-    case 3:
-        return torso3;
-        break;
-    case 4:
-        return torso4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-string base(int b) 
-{
-    switch (b)
-    {
-    case 1:
-        return base1;
-        break;
-    case 2:
-        return base2;
-        break;
-    case 3:
-        return base3;
-        break;
-    case 4:
-        return base4;
-        break;
-    
-    default:
-        throw invalid_argument("illegal digit");
-    }
-}
-
 
