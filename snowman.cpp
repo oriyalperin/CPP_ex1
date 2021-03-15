@@ -4,6 +4,7 @@
 using namespace std;
 using namespace ariel;
 
+
 const int options =4;
 array<string,options> hat={hat1,hat2,hat3,hat4};                // returns the hat array<string,options> according to input
 array<string,options> nose={nose1,nose2,nose3,nose4};           // returns the nose array<string,options> according to input
@@ -28,6 +29,11 @@ const int T= 6;             // Seventh digit in the input
 const int B= 7;             // Eighth digit in input
 const int upHand= 1;        //the fourth/Fifth digit in input is 2 = hand up
 const int ones= 10;         //for extract each digit from input
+string output(array<int,inputSize> sm);
+string handsUp(array<int,inputSize> sm);
+string rightUp(array<int,inputSize> sm);
+string leftUp(array<int,inputSize> sm);
+string handsDown(array<int,inputSize> sm);
 
 string ariel::snowman(int body)
 {
@@ -56,7 +62,7 @@ string ariel::snowman(int body)
         sm.at(i)=digit-1; // insert the current digit to the sm array 
         temp/=ones;
     }
-    output(sm);
+    return output(sm);
     
     
 
@@ -67,23 +73,23 @@ string output(array<int,inputSize> sm)
     if(sm[X]==upHand && sm[Y]!=upHand) //if left hand up and right hand not
     {
         //draw the snowman
-        leftUp(sm);
+        return leftUp(sm);
     }
 
     if (sm[X]!=upHand && sm[Y]==upHand) //if right hand up and left hand not
     {
         //draw the snowman
-        rightUp(sm);
+        return rightUp(sm);
     }
 
     if (sm[X]==upHand && sm[Y]==upHand) //both hands up
     {
         //draw the snowman
-       handsUp(sm);
+       return handsUp(sm);
     }
     
     //if none of the hands are up
-    handsDown(sm);
+    return handsDown(sm);
 }
 string handsUp(array<int,inputSize> sm)
 {
